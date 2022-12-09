@@ -24,33 +24,32 @@ function App() {
           setAlert(null);
       }, 1500);
   }
-
+   
   const toggleMode = ()=>{
     if(mode === 'light'){
       setMode('dark');
-      document.body.style.backgroundColor = '#042743';
+      document.body.style.backgroundImage = 'linear-gradient(to left, rgb(27 20 41), rgb(20 15 35))';
       showAlert("Dark mode has been enabled", "success");
     }
     else{
       setMode('light');
-      document.body.style.backgroundColor = 'white';
+      document.body.style.backgroundImage = 'linear-gradient(90deg, rgba(212,255,255,1) 0%, rgba(254,254,254,1) 0%, rgba(92,187,194,1) 100%)';
       showAlert("Light mode has been enabled", "success");
     }
   }
   return (
     <>
     <Router>
-    <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} key={new Date()} />
+    <Navbar title="Text-Transition" mode={mode} toggleMode={toggleMode} key={new Date()} />
     <Alert alert={alert}/>
     <div className="container my-3">
     <Switch>
-    {/* /users --> Component 1
-        /users/home --> Component 2 */}
+    
           <Route exact path="/about">
             <About mode={mode} />
           </Route>
           <Route exact path="/">
-            <TextForm showAlert={showAlert} heading="Try TextUtils - word counter, character counter, remove extra spaces" mode={mode}/>
+            <TextForm showAlert={showAlert} heading="Text Transition "  mode={mode}/>
           </Route>
     </Switch>
     </div>
