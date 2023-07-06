@@ -7,8 +7,9 @@ import Alert from './components/Alert';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
 } from "react-router-dom";
+
 
  
 function App() {
@@ -42,7 +43,7 @@ function App() {
     <Router>
     <Navbar title="Text-Transition" mode={mode} toggleMode={toggleMode} key={new Date()} />
     <Alert alert={alert}/>
-    <div className="container my-3">
+    <div className="container my-3" >
     <Switch>
     
           <Route exact path="/about">
@@ -51,6 +52,7 @@ function App() {
           <Route exact path="/">
             <TextForm showAlert={showAlert} heading="Text Transition "  mode={mode}/>
           </Route>
+          
     </Switch>
     </div>
     </Router>

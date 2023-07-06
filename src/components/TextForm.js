@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 
 
+
+
 export default function TextForm(props) {
     const handleUpClick = ()=>{
         let newText = text.toUpperCase();
@@ -18,6 +20,7 @@ export default function TextForm(props) {
         let newText = '';
         setText(newText);
         props.showAlert("Text Cleared!", "success");
+        setShow(false);
     }
 
     const handleOnChange = (event)=>{
@@ -34,20 +37,15 @@ export default function TextForm(props) {
         setText(newText.join(" "));
         props.showAlert("Extra spaces removed!", "success");
     }
-//     const handle=(e)=>{
-//         setKeyword(e.target.value)
-//     }
-
-//     const search=()=>{
-//         // setText(<b>{text}</b>)
-//   }
-    
-    // const [keyword,setKeyword]=useState('')
+    const [show, setShow]=useState(false);
+    const handlePreview=()=>{
+       setShow(true);
+    }
 
     const [text, setText] = useState(''); 
     return (
         <>
-        <div className="container" style={{color: props.mode==='dark'?'white':'#042743'}}> 
+        <div className="container"  style={{color: props.mode==='dark'?'white':'#042743'}}> 
         <h1 className='mb-4 ' style={{color:props.mode==='light'?"#001b53":'white'}}>{props.heading}</h1>
             {/* <div className="d-flex justify-content-between">
             <h1 className='mb-4 ' style={{color:props.mode==='light'?"#001b53":'white'}}>{props.heading}</h1>
@@ -59,22 +57,24 @@ export default function TextForm(props) {
             </div> */}
            
             <div className="mb-3"> 
-            <textarea className="form-control"  placeholder='Type or Paste your text here :)' value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'#13466e':'#d4ffff', color: props.mode==='dark'?'white':'#042743'}} id="inputText" rows="8">{text}</textarea>
+            <textarea className="form-control"  placeholder='Type or Paste your text here :)' value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'#13466e':'#d4ffff', color: props.mode==='dark'?'white':'#042743'}} id="myBox" rows="8">{text}</textarea>
             </div>
             <div className="d-flex justify-content-center my-4">
-            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Convert to Uppercase</button>
+            <button id='button' disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Convert to Uppercase</button>
             <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleLoClick}>Convert to Lowercase</button>
             <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleClearClick}>Clear Text</button>
             <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleCopy}>Copy Text</button>
             <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleCopy}>Copy Text</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handlePreview}>Preview</button>
             </div>
-        </div>
-        <div className="container my-3" style={{color: props.mode==='dark'?'white':'#042743'}}>
+            {show && <div className="container my-3" style={{color:props.mode==='dark'?'white':'#042743'}}>
             <h2>Your text summary</h2>
             <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words and {text.length} characters</p>
             <p>{0.008 *  text.split(/\s+/).filter((element)=>{return element.length!==0}).length} Minutes read</p>
             <h2>Preview</h2>
-            <p>{text.length>0?text:"Nothing to preview!"}</p>
+            <p>{text}</p>
+        </div>}
         </div>
         </>
     )
